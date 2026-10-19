@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRMXW382FF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KRMXW382FF');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Swiss Games Universe · every Swiss video game as a constellation</title>
+<meta name="description" content="Fly through every Swiss video game since 1967: each one is a constellation in the sky of its release year, with its studios, platforms and awards.">
+<link rel="canonical" href="https://games-of-switzerland.github.io/universe.swissgamesgarden/">
+<meta name="theme-color" content="#050129">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Sharing: Open Graph (Facebook, LinkedIn, Slack, Discord, ...) and X -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Swiss Games Universe">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="https://games-of-switzerland.github.io/universe.swissgamesgarden/">
+<meta property="og:title" content="Swiss Games Universe">
+<meta property="og:description" content="Fly through every Swiss video game since 1967: each one is a constellation in the sky of its release year, with its studios, platforms and awards.">
+<meta property="og:image" content="https://games-of-switzerland.github.io/universe.swissgamesgarden/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pink and white constellations of Swiss video games in a dark blue sky, next to the title Swiss Games Universe.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Swiss Games Universe">
+<meta name="twitter:description" content="Fly through every Swiss video game since 1967: each one is a constellation in the sky of its release year, with its studios, platforms and awards.">
+<meta name="twitter:image" content="https://games-of-switzerland.github.io/universe.swissgamesgarden/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Swiss Games Universe",
+  "url": "https://games-of-switzerland.github.io/universe.swissgamesgarden/",
+  "description": "Fly through every Swiss video game since 1967: each one is a constellation in the sky of its release year, with its studios, platforms and awards.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "Swiss Games Garden", "url": "https://swissgames.garden/" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body class="is-loading">
+<canvas id="stage" aria-label="A 3D sky of constellations, one per Swiss video game, along a tunnel of years" role="img"></canvas>
+<noscript>
+  <p>Fly through every Swiss video game since 1967: each one is a constellation in the sky of its release year, with its studios, platforms and awards. This 3D universe needs JavaScript. Every game is also listed on <a href="https://swissgames.garden">Swiss Games Garden</a>.</p>
+</noscript>
+
+<div class="bar">
+  <a class="brand" href="#"><span class="dot"></span><div><h1 class="brand-name">Swiss Games Universe</h1><small id="count"></small></div></a>
+  <form class="search" id="search" role="search" autocomplete="off">
+    <label class="search-box">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="search" id="searchInput" placeholder="Find a game" aria-label="Find a game" spellcheck="false">
+      <button type="button" class="search-clear" id="searchClear" aria-label="Clear" hidden>✕</button>
+    </label>
+    <ul class="search-results" id="searchResults" hidden></ul>
+  </form>
+  <button class="help" id="helpBtn" title="How to read a constellation">?</button>
+</div>
+
+<div class="year"><small>Year</small><span id="yearLabel">—</span></div>
+<nav class="year-picker" id="yearPicker" aria-label="Years"></nav>
+<div class="hint" id="hint">Scroll to fly forward through the years · move the mouse to look around · click a constellation</div>
+
+<section class="detail" id="detail" aria-hidden="true">
+  <button class="detail-close" id="detailClose" aria-label="Close">✕</button>
+  <div class="detail-text">
+    <h2 id="dTitle"></h2>
+    <p class="detail-sub" id="dSub"></p>
+    <div class="detail-meta"><span id="dMeta" style="display:contents"></span></div>
+    <div class="chips" id="dChipsWho"></div>
+    <div class="chips" id="dChipsPlatforms"></div>
+    <div class="chips" id="dChipsAwards"></div>
+    <a class="btn" id="dLink" href="#" target="_blank" rel="noopener">See on Swiss Games Garden <span aria-hidden="true">↗</span></a>
+  </div>
+  <!-- "Why this constellation?" sits next to the figure: under it on desktop, at the bottom of the figure band on mobile -->
+  <button class="why" id="whyBtn" aria-expanded="false"><span class="why-icon"><svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true"><circle cx="5" cy="1.9" r="1.1" fill="currentColor"/><rect x="4.05" y="4" width="1.9" height="5" rx=".6" fill="currentColor"/></svg></span>Why this constellation?</button>
+</section>
+
+<div class="legend" id="legend">
+  <button class="legend-close" id="legendX" aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  <div class="legend-inner">
+    <h2>How a constellation is built</h2>
+    <p>Fly through the swiss games universe. Each game is a constellation hanging, in the stretch of its release year.</p>
+    <svg viewBox="0 0 760 300" aria-hidden="true">
+      <defs><filter id="g"><feGaussianBlur stdDeviation="2.2"/></filter></defs>
+      <!-- figure -->
+      <g transform="translate(470 30)">
+        <g fill="none" stroke="#ff7daf" stroke-opacity=".8" stroke-width="1.4">
+          <polyline points="100,110 150,80 230,30 270,60"/>
+          <line x1="100" y1="110" x2="50" y2="140"/><line x1="50" y1="140" x2="20" y2="125"/><line x1="50" y1="140" x2="30" y2="165"/><line x1="50" y1="140" x2="60" y2="175"/>
+          <line x1="150" y1="80" x2="160" y2="62"/>
+          <line x1="100" y1="110" x2="120" y2="170"/>
+        </g>
+        <circle cx="100" cy="110" r="10" fill="#fff" filter="url(#g)" opacity=".7"/><circle cx="100" cy="110" r="7" fill="#fff"/>
+        <circle cx="150" cy="80" r="4" fill="#fff"/><circle cx="230" cy="30" r="4.5" fill="#fff"/><circle cx="270" cy="60" r="3.5" fill="#fff"/>
+        <circle cx="50" cy="140" r="4.5" fill="#fff"/>
+        <circle cx="20" cy="125" r="2.5" fill="#fff"/><circle cx="30" cy="165" r="2.5" fill="#fff"/><circle cx="60" cy="175" r="2.5" fill="#fff"/>
+        <circle cx="160" cy="62" r="2" fill="#fff"/>
+        <circle cx="120" cy="170" r="5" fill="#fff" filter="url(#g)" opacity=".8"/><circle cx="120" cy="170" r="3.5" fill="#fff"/>
+        <text class="legend-note" x="86" y="100">game</text><text class="legend-note" x="200" y="22">platforms</text><text class="legend-note" x="28" y="200">people</text>
+        <text class="legend-note" x="34" y="132">studio</text><text class="legend-note" x="130" y="190">award</text><text class="legend-note" x="166" y="56">store</text>
+      </g>
+      <!-- legend texts -->
+      <text class="legend-title" x="20" y="40">Main star</text><text class="legend-key" x="20" y="56">The game · size = people &amp; studios credited</text>
+      <text class="legend-title" x="20" y="84">Platform stars</text><text class="legend-key" x="20" y="100">One per platform, chained in release order · line = time gap</text>
+      <text class="legend-title" x="20" y="128">Studio &amp; people stars</text><text class="legend-key" x="20" y="144">Branch off the main star · people fan around their studio</text>
+      <text class="legend-title" x="20" y="172">Stores &amp; awards</text><text class="legend-key" x="20" y="188">Twigs on platforms · rays from the main star</text>
+      <text class="legend-title" x="20" y="216">Glow</text><text class="legend-key" x="20" y="232">Brighter halo for every award won</text>
+      <text class="legend-title" x="20" y="260">Position along the tunnel</text><text class="legend-key" x="20" y="276">Depth in the year = release month</text>
+      <line x1="420" y1="250" x2="730" y2="250" stroke="#ff7daf" stroke-width="1"/>
+      <polygon points="730,250 722,246 722,254" fill="#ff7daf"/><polygon points="420,250 428,246 428,254" fill="#ff7daf"/>
+      <text class="legend-key" x="420" y="272">January · near</text><text class="legend-key" x="650" y="272">December · far</text>
+    </svg>
+    <p><kbd>Scroll</kbd> flies you forward and backward through time · <kbd>↑</kbd> <kbd>↓</kbd> jump one year · <kbd>Click</kbd> a constellation to zoom on it · <kbd>Esc</kbd> comes back.</p>
+    <button id="legendClose">Got it</button>
+  </div>
+</div>
+
+<div class="legend" id="explain" aria-hidden="true">
+  <button class="legend-close" id="explainX" aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  <div class="legend-inner">
+    <h2>Why this constellation</h2>
+    <div class="explain-grid">
+      <dl class="rows" id="xList"></dl>
+      <div class="explain-figure" id="xFigure"></div>
+    </div>
+    <p class="legend-actions"><button id="explainClose">Got it</button><a href="#" id="xLegend" class="legend-link">General rules</a></p>
+  </div>
+</div>
+
+<div class="loading" id="loading">Building the sky…</div>
+
+<!-- Development: ES modules bundled on the fly by server.ts. Production (`bun run build`): inlined into dist/index.html. -->
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

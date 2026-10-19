@@ -1,0 +1,33 @@
+# Validates every push and pull request: unit tests, production build, and a dry run of the
+# constellation algorithm over the local data (no network).
+
+name: Build & Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Python tests
+        run: bun run test:py
+      - name: Unit tests
+        run: bun run test
+      - name: Build
+        run: bun run build
+      - name: Constellation algorithm dry run
+        run: python3 scripts/fetch_games.py --relayout --dry-run

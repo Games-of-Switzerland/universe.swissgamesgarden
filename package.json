@@ -1,0 +1,36 @@
+{
+  "name": "universe-swissgamesgarden",
+  "version": "0.0.0",
+  "description": "Every Swiss video game as a constellation in a 3D universe of time.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Kevin Wenger",
+  "homepage": "https://universe.swissgames.garden",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Games-of-Switzerland/universe.swissgamesgarden.git"
+  },
+  "scripts": {
+    "dev": "bun --watch server.ts",
+    "build": "bun run scripts/build.ts",
+    "og-image": "bun run scripts/og-image.ts",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:py": "python3 -m unittest discover -s tests/python",
+    "fetch": "python3 scripts/fetch_games.py",
+    "fetch:refresh": "python3 scripts/fetch_games.py --refresh-meta",
+    "fetch:rebuild": "python3 scripts/fetch_games.py --rebuild",
+    "relayout": "python3 scripts/fetch_games.py --relayout"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "bun": ">=1.2"
+  }
+}

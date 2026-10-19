@@ -1,0 +1,49 @@
+name: Update games database
+
+on:
+  schedule:
+    # Every Monday at 05:00 UTC. Adjust as you like.
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      refresh_meta:
+        description: "Also refresh title/cover/credits of games already in the database"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-games
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch new games and build their constellations
+        run: |
+          if [ "${{ github.event.inputs.refresh_meta }}" = "true" ]; then
+            python3 scripts/fetch_games.py --refresh-meta
+          else
+            python3 scripts/fetch_games.py
+          fi
+
+      - name: Commit new games
+        run: |
+          if git diff --quiet -- data; then
+            echo "No new games."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "feat(data): add new games from swissgames.garden ($(date -u +%Y-%m-%d))"
+          git push

@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  Source of public/og-image.png (1200 × 630), the picture shown when the site is shared.
+  It draws real constellations from data/games.json, so it needs the dev server, then the renderer:
+    PORT=4791 bun run dev
+    bun run og-image
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #050129;
+    font-family: Inter, sans-serif;
+    color: #fff;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+  }
+  .text {
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ff7daf;
+    box-shadow: 0 0 16px #ff7daf;
+  }
+  h1 {
+    margin: 26px 0 22px;
+    font-size: 76px;
+    line-height: 1.02;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+  p {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .meta {
+    margin-top: 40px;
+    font-size: 19px;
+    font-weight: 600;
+    color: #ff7daf;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+<canvas id="sky" width="1200" height="630"></canvas>
+<div class="text">
+  <div class="brand"><span class="dot"></span>universe.swissgames.garden</div>
+  <h1>Swiss Games<br>Universe</h1>
+  <p>Every Swiss video game as a constellation in the sky of its release year.</p>
+  <div class="meta" id="meta"></div>
+</div>
+<script type="module">
+  import { seededRandom } from '/src/vec.js';
+
+  const db = await (await fetch('/data/games.json')).json();
+  const games = db.games.filter((game) => game.constellation?.stars.length);
+  const years = games.map((game) => game.year).filter(Boolean);
+  document.getElementById('meta').textContent =
+    `${games.length.toLocaleString('en')} games · ${Math.min(...years)} – ${Math.max(...years)} · fly through the years`;
+
+  // Canvas text needs the font loaded first.
+  await Promise.all(['800 300px Inter', '600 16px Inter'].map((font) => document.fonts.load(font)));
+
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const random = seededRandom(7);
+
+  // Sky: the same gradient as the viewer, brighter where the constellations hang.
+  const sky = ctx.createRadialGradient(860, 300, 0, 860, 300, 760);
+  sky.addColorStop(0, '#0d0850');
+  sky.addColorStop(1, '#040120');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // Background starfield.
+  for (let i = 0; i < 420; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${0.15 + random() * 0.5})`;
+    ctx.beginPath();
+    ctx.arc(random() * 1200, random() * 630, 0.4 + random() * 1.2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // A faded year, like the year gates of the tunnel.
+  ctx.fillStyle = 'rgba(255,125,175,0.09)';
+  ctx.font = '800 270px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('2022', 960, 480);
+
+  /** Draws one constellation centred at (cx, cy), `scale` px per sky unit, turned by `angle`, faded by `alpha`. */
+  function draw(title, cx, cy, scale, angle, alpha) {
+    const game = games.find((candidate) => candidate.title.trim() === title);
+    if (!game) return;
+    const { stars, links, shine } = game.constellation;
+    const xs = stars.map((star) => star.x);
+    const ys = stars.map((star) => star.y);
+    const midX = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const midY = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    const at = stars.map((star) => {
+      const x = (star.x - midX) * scale;
+      const y = (star.y - midY) * scale;
+      return [cx + x * cos - y * sin, cy + x * sin + y * cos];
+    });
+    ctx.strokeStyle = `rgba(255,125,175,${0.85 * alpha})`;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    for (const [from, to] of links) {
+      ctx.moveTo(...at[from]);
+      ctx.lineTo(...at[to]);
+    }
+    ctx.stroke();
+    stars.forEach((star, index) => {
+      const [x, y] = at[index];
+      const radius = Math.max(1.6, star.r * scale * 0.55);
+      const halo = ctx.createRadialGradient(x, y, 0, x, y, radius * (3 + shine));
+      halo.addColorStop(0, `rgba(255,255,255,${(0.35 + 0.1 * shine) * alpha})`);
+      halo.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = halo;
+      ctx.beginPath();
+      ctx.arc(x, y, radius * (3 + shine), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  // Far to near.
+  draw('Feist', 1105, 95, 1.1, 0.4, 0.45);
+  draw('Dreii', 700, 560, 1.0, -0.6, 0.4);
+  draw('Deru: The Art of Cooperation', 1090, 500, 1.5, 0.9, 0.7);
+  draw('Swordship', 870, 270, 2.6, -0.25, 1);
+
+  document.body.dataset.ready = 'true';
+</script>
+</body>
+</html>
