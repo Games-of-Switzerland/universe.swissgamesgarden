@@ -54,6 +54,9 @@ export const LOOK_EASE = 0.1;
 // Scroll pixels per world unit.
 export const PX_PER_UNIT = 0.6;
 
+// On touch screens, scroll pixels per pixel the two fingers of a pinch move apart (forward) or together (back).
+export const PINCH_SCROLL = 3;
+
 // Viewport width in px at or below which the detail is a page: figure on top, text below.
 export const MOBILE_MAX_WIDTH = 720;
 

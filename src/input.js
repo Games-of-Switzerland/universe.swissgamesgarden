@@ -4,6 +4,7 @@
  */
 import { focus, travel } from './app.js';
 import { hitTest, nearest } from './camera.js';
+import { PINCH_SCROLL } from './config.js';
 import { isExplainOpen, isLegendOpen, toggleExplain, toggleLegend } from './overlays.js';
 import { shineNear } from './shines.js';
 import { cam, mouse, state, view } from './state.js';
@@ -48,15 +49,45 @@ export function initInput() {
     // camera turns toward the cursor, so re-picking at click time would miss what the user aimed at.
     if (state.hovered) focus.open(state.hovered);
   });
+  // Pinch: spreading two fingers flies forward like scrolling down, bringing them together flies back.
+  let pinch = null;
+  let pinched = false;
+  const spread = (touches) =>
+    Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
   canvas.addEventListener(
     'touchstart',
     (event) => {
-      mouse.x = event.touches[0].clientX;
-      mouse.y = event.touches[0].clientY;
+      if (event.touches.length === 1) {
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+        pinched = false;
+      }
+      if (event.touches.length === 2) {
+        pinch = spread(event.touches);
+        pinched = true;
+      }
     },
     { passive: true },
   );
+  canvas.addEventListener(
+    'touchmove',
+    (event) => {
+      if (event.touches.length !== 2 || pinch === null) return;
+      // Two fingers belong to the pinch: no native two-finger pan meanwhile.
+      event.preventDefault();
+      const now = spread(event.touches);
+      if (focus.phase === 'browse') window.scrollBy(0, (now - pinch) * PINCH_SCROLL);
+      pinch = now;
+    },
+    { passive: false },
+  );
+  canvas.addEventListener('touchcancel', () => {
+    pinch = null;
+  });
   canvas.addEventListener('touchend', (event) => {
+    if (event.touches.length < 2) pinch = null;
+    // Lifting the fingers of a pinch is not a tap.
+    if (pinched) return;
     if (focus.game && focus.phase !== 'closing') return;
     const touch = event.changedTouches[0];
     // A finger that moved was a scroll, not a tap.
