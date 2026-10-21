@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: intro sequence on the home (logo, then the sky, then the UI sliding in)
 - feat: game detail reworked for mobile (figure on top, text sheet below, full-screen explainer), "Why this constellation?" pill next to the figure, pills truncated with an ellipsis
 - feat: detail subtitle by release state (released / under development / prototype / canceled)
+- fix: phone tilt no longer jumps when held upright (full 3D rotation, smoothed)
 - fix: closing a game flies back along the exact same path; the figure keeps its size while the mobile browser bar collapses
 - fix: search ranks titles with a word starting with the query before plain substring matches
 - fix: the weekly data update now triggers the Deploy workflow
