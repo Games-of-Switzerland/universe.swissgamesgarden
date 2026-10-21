@@ -375,6 +375,171 @@ body.is-focused .compass {
   pointer-events: none;
 }
 
+/* Coach: centred card that shows how to move and look around, one gesture at a time. */
+.coach {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 170px;
+  padding: 20px 24px 16px;
+  background: #fff;
+  color: var(--bg);
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  animation: coach-in 0.4s ease both;
+  transition: opacity 0.4s;
+}
+.coach[hidden] {
+  display: none;
+}
+.coach.is-leaving,
+body.is-focused .coach,
+body.is-loading .coach {
+  opacity: 0;
+}
+.coach-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.coach-art {
+  display: none;
+  position: relative;
+  width: 72px;
+  height: 52px;
+}
+.coach[data-step="pinch"] .coach-pinch,
+.coach[data-step="tilt"] .coach-tilt,
+.coach[data-step="scroll"] .coach-scroll,
+.coach[data-step="look"] .coach-look {
+  display: block;
+}
+/* Pinch: two fingertips moving apart and back. */
+.coach-pinch span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: coach-pinch 1.6s ease-in-out infinite;
+}
+.coach-pinch span + span {
+  animation-name: coach-pinch-other;
+}
+/* Tilt: a phone turning from side to side. */
+.coach-phone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 44px;
+  margin: -22px -13px;
+  border: 3px solid var(--bg);
+  border-radius: 7px;
+  box-sizing: border-box;
+  animation: coach-tilt 2s ease-in-out infinite;
+}
+/* Mouse: a body with its wheel; scrolling rolls the wheel, looking moves the whole mouse. */
+.coach-mouse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24px;
+  height: 36px;
+  margin: -18px -12px;
+  border: 3px solid var(--bg);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+.coach-mouse::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.coach-scroll .coach-mouse::before {
+  animation: coach-wheel 1.2s ease-in infinite;
+}
+.coach-look .coach-mouse {
+  animation: coach-look 2.4s ease-in-out infinite;
+}
+@keyframes coach-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -46%);
+  }
+}
+@keyframes coach-pinch {
+  0%,
+  100% {
+    transform: translate(-6px, 6px);
+  }
+  50% {
+    transform: translate(-24px, 18px);
+  }
+}
+@keyframes coach-pinch-other {
+  0%,
+  100% {
+    transform: translate(6px, -6px);
+  }
+  50% {
+    transform: translate(24px, -18px);
+  }
+}
+@keyframes coach-tilt {
+  0%,
+  100% {
+    transform: perspective(120px) rotateY(-35deg) rotateX(10deg);
+  }
+  50% {
+    transform: perspective(120px) rotateY(35deg) rotateX(-10deg);
+  }
+}
+@keyframes coach-wheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+@keyframes coach-look {
+  0%,
+  100% {
+    transform: translate(-18px, 2px);
+  }
+  50% {
+    transform: translate(18px, -4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coach,
+  .coach .coach-pinch span,
+  .coach .coach-phone,
+  .coach .coach-mouse,
+  .coach .coach-mouse::before {
+    animation: none;
+  }
+}
+
 /* Intro: the logo shows first, then the sky fades in (canvas), then the UI slides in from outside the screen. */
 .brand {
   animation: brandIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;

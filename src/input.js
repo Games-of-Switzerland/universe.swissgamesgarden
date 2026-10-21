@@ -4,6 +4,7 @@
  */
 import { focus, travel } from './app.js';
 import { hitTest, nearest } from './camera.js';
+import { coachDid } from './coach.js';
 import { PINCH_SCROLL } from './config.js';
 import { isExplainOpen, isLegendOpen, toggleExplain, toggleLegend } from './overlays.js';
 import { shineNear } from './shines.js';
@@ -51,6 +52,7 @@ export function initInput() {
   });
   // Pinch: spreading two fingers flies forward like scrolling down, bringing them together flies back.
   let pinch = null;
+  let pinchStart = 0;
   let pinched = false;
   const spread = (touches) =>
     Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
@@ -64,6 +66,7 @@ export function initInput() {
       }
       if (event.touches.length === 2) {
         pinch = spread(event.touches);
+        pinchStart = pinch;
         pinched = true;
       }
     },
@@ -77,6 +80,7 @@ export function initInput() {
       event.preventDefault();
       const now = spread(event.touches);
       if (focus.phase === 'browse') window.scrollBy(0, (now - pinch) * PINCH_SCROLL);
+      if (Math.abs(now - pinchStart) > 40) coachDid('pinch');
       pinch = now;
     },
     { passive: false },

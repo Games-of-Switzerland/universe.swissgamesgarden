@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: SEO: descriptive title and description, canonical URL, Open Graph and X cards, theme colour, JSON-LD, `robots.txt` and `sitemap.xml`, a `<noscript>` text; the tab title names the open game; the overlays use `h2` so the page keeps one `h1`
 - feat: on phones, tilting the device looks around like the mouse does
 - feat: on phones, pinching flies forward (fingers apart) or back (fingers together), like scrolling
+- feat: a card in the middle of the home shows how to move and look around (pinch and tilt on phones, scroll and mouse on desktop) when the visitor has not moved a few seconds after the page loads (on every load)
 - feat: on phones, a compass (bottom right) shows straight ahead; tapping it recentres the tilt (on iOS, it first asks for motion access)
 - feat: no pinch or double-tap zoom on mobile
 - feat: Google Analytics (gtag.js, `G-KRMXW382FF`) in the page head

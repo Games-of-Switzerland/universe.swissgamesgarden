@@ -81,6 +81,9 @@ export const MOBILE_FOCUS_MIN_HEIGHT = 0.2;
 // Opacity of a constellation title when close enough to read it.
 export const LABEL_ALPHA = 0.5;
 
+// Milliseconds without moving before the coach shows how to move and look around.
+export const COACH_IDLE_MS = 3500;
+
 // Duration of a sparkle, ms.
 export const SHINE_MS = 750;
 

@@ -10,10 +10,13 @@
  * @module tilt
  */
 
+import { coachDid, coachStep } from './coach.js';
 import { MAX_YAW } from './config.js';
 
 // Degrees of tilt away from straight ahead that look all the way to the side (or up and down).
 const TILT_RANGE = 22;
+// Look change, in mouse look units, since the coach asked for the tilt, at which it counts as learnt.
+const TILT_LEARNT = 0.35;
 // Share of the way to the new look taken at each reading: smooths the sensor's jitter.
 const SMOOTHING = 0.25;
 
@@ -90,6 +93,10 @@ export function createTilt() {
   };
 }
 
+// Whether the device tilt can look around: readings arrive, or (iOS) motion access may still be granted.
+let usable = false;
+export const tiltUsable = () => usable;
+
 /**
  * Looks around with the device tilt on touch devices, writing the shared mouse look. iOS asks for permission,
  * which needs a user gesture: the first tap asks. Skipped when the user prefers reduced motion.
@@ -102,6 +109,8 @@ export function initTilt(mouse) {
   const tilt = createTilt();
   const compass = document.getElementById('compass');
   const needle = compass.querySelector('.compass-needle');
+  // The look when the coach started asking for the tilt.
+  let asked = null;
   const onReading = (event) => {
     if (event.beta === null || event.gamma === null) return;
     const angle = screen.orientation?.angle ?? window.orientation ?? 0;
@@ -110,6 +119,10 @@ export function initTilt(mouse) {
     mouse.ny = look.ny;
     mouse.active = true;
     compass.hidden = false;
+    usable = true;
+    if (coachStep() !== 'tilt') asked = null;
+    else if (!asked) asked = look;
+    else if (Math.hypot(look.nx - asked.nx, look.ny - asked.ny) > TILT_LEARNT) coachDid('tilt');
     // Looking right, straight ahead is on the left.
     needle.style.transform = `rotate(${-look.nx * MAX_YAW}deg)`;
   };
@@ -126,6 +139,7 @@ export function initTilt(mouse) {
   // iOS: the compass shows from the start, off, so there is always a tap that asks. A scroll is not a tap for
   // iOS, so the first touch of the page may not be able to ask.
   let permission = 'unknown';
+  usable = true;
   compass.hidden = false;
   compass.classList.add('is-off');
   const ask = () => {
@@ -138,7 +152,12 @@ export function initTilt(mouse) {
         if (answer === 'granted') {
           compass.classList.remove('is-off');
           listen();
-        } else compass.hidden = true;
+        } else {
+          compass.hidden = true;
+          usable = false;
+          // Nothing to teach without the sensor.
+          coachDid('tilt');
+        }
       })
       // Not from a tap: ask again on the next one.
       .catch(() => {

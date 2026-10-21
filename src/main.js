@@ -4,18 +4,19 @@
  */
 import { browsePose, focus, solvePose, travel } from './app.js';
 import { project, updateBasis } from './camera.js';
+import { initCoach } from './coach.js';
 import { FOCUS_AT } from './config.js';
 import { games } from './data.js';
 import { initDetail } from './detail.js';
 import { initInput } from './input.js';
 import { playIntro } from './intro.js';
-import { initOverlays } from './overlays.js';
+import { initOverlays, isExplainOpen, isLegendOpen } from './overlays.js';
 import { startRender } from './render.js';
 import { currentSlug } from './router.js';
 import { bands, lastYearBand } from './scene.js';
 import { initSearch } from './search.js';
 import { cam, mouse } from './state.js';
-import { initTilt } from './tilt.js';
+import { initTilt, tiltUsable } from './tilt.js';
 import { onResize, resize } from './viewport.js';
 import { updateYearPicker } from './years.js';
 
@@ -38,6 +39,7 @@ function boot() {
   initOverlays();
   initInput();
   initTilt(mouse);
+  initCoach(() => focus.phase === 'browse' && !isLegendOpen() && !isExplainOpen(), tiltUsable);
   initDetail();
   initSearch(games, focus.open);
   document.getElementById('loading').classList.add('is-done');

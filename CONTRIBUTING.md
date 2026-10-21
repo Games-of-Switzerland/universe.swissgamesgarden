@@ -46,7 +46,8 @@ src/
   router.js           the hash is the route: #<slug> opens a game, back closes it
   intro.js            the opening sequence
   shines.js           sparkles
-  tilt.js             phones: tilting the device looks around
+  tilt.js             phones: tilting the device looks around, the compass recentres
+  coach.js            the card that shows how to move and look around, once
   viewport.js         canvas size, focal length
   state.js            the few mutable things shared by the modules
   vec.js              vectors, rotations, hashes, easings
