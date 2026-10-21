@@ -1004,6 +1004,18 @@ body.is-entering .hint {
     sans-serif;
   cursor: pointer;
 }
+/* Instructions for the device at hand: mouse and keyboard, or touch. */
+.legend .on-touch {
+  display: none;
+}
+@media (pointer: coarse) {
+  .legend .on-mouse {
+    display: none;
+  }
+  .legend .on-touch {
+    display: block;
+  }
+}
 .legend kbd {
   font:
     600 11px Inter,
