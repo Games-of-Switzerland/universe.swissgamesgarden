@@ -342,6 +342,39 @@ body.is-focused .hint {
   opacity: 0;
 }
 
+/* Compass, bottom-right on phones with a motion sensor: the needle points straight ahead, a tap recentres. */
+.compass {
+  position: fixed;
+  right: 16px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: var(--ink);
+  cursor: pointer;
+  z-index: 4;
+  transition: opacity 0.4s;
+}
+.compass[hidden] {
+  display: none;
+}
+.compass-needle {
+  transform-origin: 12px 12px;
+}
+/* iOS, before motion access is granted: tapping asks for it. */
+.compass.is-off {
+  opacity: 0.5;
+}
+body.is-focused .compass {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Intro: the logo shows first, then the sky fades in (canvas), then the UI slides in from outside the screen. */
 .brand {
   animation: brandIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -393,6 +426,10 @@ body.is-loading .hint {
 body.is-loading .year-picker {
   transform: translate(calc(100% + 40px), -50%);
   opacity: 0;
+}
+body.is-loading .compass {
+  opacity: 0;
+  pointer-events: none;
 }
 body.is-entering .help {
   transition-delay: 0.1s;

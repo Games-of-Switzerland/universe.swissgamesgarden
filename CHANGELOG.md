@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: SEO: descriptive title and description, canonical URL, Open Graph and X cards, theme colour, JSON-LD, `robots.txt` and `sitemap.xml`, a `<noscript>` text; the tab title names the open game; the overlays use `h2` so the page keeps one `h1`
 - feat: on phones, tilting the device looks around like the mouse does
 - feat: on phones, pinching flies forward (fingers apart) or back (fingers together), like scrolling
+- feat: on phones, a compass (bottom right) shows straight ahead; tapping it recentres the tilt (on iOS, it first asks for motion access)
 - feat: no pinch or double-tap zoom on mobile
 - feat: Google Analytics (gtag.js, `G-KRMXW382FF`) in the page head
 - feat: proof of concept of the Swiss Games Universe: every Swiss video game as a constellation in a 3D tunnel of time

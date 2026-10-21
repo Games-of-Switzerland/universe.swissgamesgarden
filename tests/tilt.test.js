@@ -54,12 +54,17 @@ describe('tilt', () => {
     expect(settle(heldAt(0, 0, 0, 270), 0, 11, 0, 270).nx).toBeCloseTo(0.5, 2);
   });
 
-  it('starts from straight ahead again when the screen turns, or when asked', () => {
+  it('starts from straight ahead again when the screen turns, or when asked, easing back to the centre', () => {
     const tilt = heldAt(0, 55, 0);
-    settle(tilt, 0, 55, 15);
-    expect(tilt.read(0, 10, 70, 90)).toEqual({ nx: 0, ny: 0 });
+    const looking = settle(tilt, 0, 55, 15);
+    const turned = tilt.read(0, 10, 70, 90);
+    expect(Math.abs(turned.nx)).toBeLessThan(Math.abs(looking.nx));
+    expect(settle(tilt, 0, 10, 70, 90).nx).toBeCloseTo(0, 6);
+    settle(tilt, 0, 30, 70, 90);
     tilt.recentre();
-    expect(tilt.read(0, 30, 5, 90)).toEqual({ nx: 0, ny: 0 });
+    const recentred = settle(tilt, 0, 30, 70, 90);
+    expect(recentred.nx).toBeCloseTo(0, 6);
+    expect(recentred.ny).toBeCloseTo(0, 6);
   });
 
   it('keeps the same straight ahead: the same tilt always looks the same way', () => {
