@@ -3,6 +3,7 @@
  * (favicons, sharing image, robots.txt, sitemap.xml) copied as they are.
  */
 import { cp, mkdir } from 'node:fs/promises';
+import { injectVersion } from './version.ts';
 
 const root = `${import.meta.dir}/..`;
 
@@ -20,7 +21,8 @@ if (!result.success) {
 // "</script" inside a JS string would end the inline script early: escape it (valid in JS and JSON strings).
 const js = (await result.outputs[0].text()).replaceAll('</script', '<\\/script');
 const css = await Bun.file(`${root}/src/styles.css`).text();
-const html = await Bun.file(`${root}/index.html`).text();
+const version = await Bun.file(`${root}/VERSION.md`).text();
+const html = injectVersion(await Bun.file(`${root}/index.html`).text(), version);
 
 const styleTag = '<link rel="stylesheet" href="src/styles.css">';
 const scriptTag = '<script type="module" src="src/main.js"></script>';
@@ -48,4 +50,4 @@ await cp(`${root}/public`, `${root}/dist`, { recursive: true });
 await Bun.write(`${root}/dist/CNAME`, 'universe.swissgames.garden\n');
 // Pages must not run Jekyll over the output.
 await Bun.write(`${root}/dist/.nojekyll`, '');
-console.log(`dist/index.html (${(out.length / 1024).toFixed(0)} kB)`);
+console.log(`dist/index.html v${version.trim()} (${(out.length / 1024).toFixed(0)} kB)`);
