@@ -14,8 +14,9 @@ bun run dev        # development server, prints its URL
 
 ## Branches
 
-`dev` is the default branch: open pull requests against it. `main` is what is live; it only gets `dev` merged into
-it (a release), the release commits and the weekly data update, which are merged back into `dev` automatically.
+`dev` is the default branch: open pull requests against it, and the weekly data update commits the new games there
+(with a line under "Unreleased"). `main` is what is live: it only gets `dev` merged into it, which is a release, and
+the release commit, merged back into `dev` automatically. Nothing on `dev` goes live before a release.
 
 ## Before opening a pull request
 

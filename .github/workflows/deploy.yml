@@ -1,14 +1,13 @@
 # Builds main and publishes dist/ to GitHub Pages after each successful Release run (every push to main, so the
-# release commit and its VERSION.md are in), after each successful weekly data update, and on demand.
+# release commit and its VERSION.md are in), and on demand. Nothing on dev goes live before a release.
 
 name: Deploy
 
 on:
-  # No branch filter: the scheduled data update runs from dev (the default branch) but commits to main, and
-  # Release only runs on main. Either way the build below checks out main.
   workflow_run:
-    workflows: ["Release", "Update games database"]
+    workflows: ["Release"]
     types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

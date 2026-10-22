@@ -37,7 +37,7 @@ bun run build
 
 ## 🚢 Deploy
 
-Work happens on `dev`. Merging `dev` into `main` releases it (`.github/workflows/release.yml`: the "Unreleased" entries of `CHANGELOG.md` become the next version, see [CONTRIBUTING.md](CONTRIBUTING.md#releasing)), then builds the site and publishes it to GitHub Pages (`.github/workflows/deploy.yml`). The weekly data update commits to `main` and goes live by itself, without a release.
+Work happens on `dev`. Merging `dev` into `main` releases it (`.github/workflows/release.yml`: the "Unreleased" entries of `CHANGELOG.md` become the next version, see [CONTRIBUTING.md](CONTRIBUTING.md#releasing)), then builds the site and publishes it to GitHub Pages (`.github/workflows/deploy.yml`). The weekly data update commits the new games to `dev`, with a changelog line: they go live with the next release.
 
 ## ✅ Quality
 

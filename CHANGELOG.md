@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - feat: `dev` is the default branch; "Build & Test" and "Linting" run on `main` and `dev`
-- feat: the Deploy workflow runs after the Release workflow instead of on every push, so the site shows the new version
-- feat: the weekly data update commits to `main` (live without a release), then merges `main` into `dev`
+- feat: the Deploy workflow runs only after the Release workflow, so the site shows the new version and nothing goes live before a release
+- feat: the weekly data update commits the new games to `dev` with a line under "Unreleased" in `CHANGELOG.md` (chan); they go live with the next release
 - feat: opening a game adds a history entry, so the back button closes it
 - feat: `data/games.json` keeps the algorithm parameters of every version (`params`)
 - refactor: `data/games.js` is gone, the modules import `data/games.json` directly
