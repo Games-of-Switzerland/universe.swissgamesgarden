@@ -91,7 +91,7 @@ There is nothing to do by hand: every push to `main` runs the "Release" workflow
 [CHANGELOG.md](CHANGELOG.md) lists something, it picks the next version from those entries (major for a
 `### Removed` section, a `!` after the type or `BREAKING`; minor for an `### Added` section or a `feat`; patch
 otherwise), moves them under that version with [chan](https://github.com/geut/chan), writes it to
-[VERSION.md](VERSION.md), tags `v<version>`, publishes the GitHub release and deploys. A push with nothing under
+[VERSION.md](VERSION.md), tags `<version>` (no `v`: `1.1.0`), publishes the GitHub release and deploys. A push with nothing under
 "Unreleased" is deployed without a release. `bun scripts/release.ts` prints the version the next release would get.
 
 So each merged pull request is its own release. To ship several changes as one release, merge them into a release

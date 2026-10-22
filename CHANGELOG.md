@@ -15,9 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2026-10-22
 ### Changed
-- feat: the Deploy workflow runs after each release instead of on every push, so the site shows the new version
-- refactor: the "Build & Test" workflow lives in `.github/workflows/test.yml`
-- feat: the weekly data update adds its line under "Unreleased" in `CHANGELOG.md` (chan) and releases the new games
 - feat: the "?" of the top bar shares a pill with a GitHub link that shows the site version
 - feat: opening a game adds a history entry, so the back button closes it
 - feat: `data/games.json` keeps the algorithm parameters of every version (`params`)
