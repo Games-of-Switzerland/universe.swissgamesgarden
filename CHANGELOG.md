@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- feat: the Deploy workflow runs after each release instead of on every push, so the site shows the new version
+- refactor: the "Build & Test" workflow lives in `.github/workflows/test.yml`
+- feat: the weekly data update adds its line under "Unreleased" in `CHANGELOG.md` (chan) and releases the new games
 - feat: the "?" of the top bar shares a pill with a GitHub link that shows the site version
 - feat: opening a game adds a history entry, so the back button closes it
 - feat: `data/games.json` keeps the algorithm parameters of every version (`params`)
@@ -27,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - perf: star halos are stamped from one pre-drawn sprite; the focus camera is solved once per opening
 
 ### Added
+- feat: GitHub Action "Release": every push to `main` with entries under "Unreleased" bumps the version (`VERSION.md`, from the entries: `scripts/release.ts`), moves them under that version with chan, tags and publishes a GitHub release
 - feat: sharing image (`public/og-image.png`, drawn from real constellations by `scripts/og-image.html`, `bun run og-image`), favicon (SVG, ICO, Apple touch icon)
 - feat: SEO: descriptive title and description, canonical URL, Open Graph and X cards, theme colour, JSON-LD, `robots.txt` and `sitemap.xml`, a `<noscript>` text; the tab title names the open game; the overlays use `h2` so the page keeps one `h1`
 - feat: on phones, tilting the device looks around like the mouse does

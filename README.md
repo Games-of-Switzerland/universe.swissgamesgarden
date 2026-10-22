@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/build.yml"><img src="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/build.yml/badge.svg" alt="Build & Test"></a>
+  <a href="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/test.yml"><img src="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/test.yml/badge.svg" alt="Build & Test"></a>
   <a href="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/linting.yml"><img src="https://github.com/Games-of-Switzerland/universe.swissgamesgarden/actions/workflows/linting.yml/badge.svg" alt="Linting"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
 </p>
@@ -37,7 +37,7 @@ bun run build
 
 ## 🚢 Deploy
 
-Every push to `main` builds the site and publishes to GitHub Pages (`.github/workflows/deploy.yml`), so the weekly data update goes live by itself. 
+Every push to `main` is released (`.github/workflows/release.yml`: the "Unreleased" entries of `CHANGELOG.md` become the next version, see [CONTRIBUTING.md](CONTRIBUTING.md#releasing)), then built and published to GitHub Pages (`.github/workflows/deploy.yml`). The weekly data update commits the new games to `main` with their changelog line and releases them the same way.
 
 ## ✅ Quality
 

@@ -58,6 +58,7 @@ scripts/
   merge.py            what gets added, refreshed or skipped, and where it sits (pure)
   constellation.py    the constellation algorithm
   build.ts            the production build (also copies public/)
+  release.ts          the next version from CHANGELOG.md, and the notes of a release (Release workflow)
   version.ts          writes the version of VERSION.md into the page (build and dev server)
   og-image.html       source of the sharing image; og-image.ts renders it (bun run og-image)
 public/               favicons, sharing image, robots.txt, sitemap.xml: served at the root as they are
@@ -82,4 +83,19 @@ so in the pull request.
 
 Use imperative, conventional-commit style messages: `feat(detail): add the award pills`,
 `fix(camera): keep the focal length while the mobile bar collapses`. Add an entry to
-[CHANGELOG.md](CHANGELOG.md) under "Unreleased".
+[CHANGELOG.md](CHANGELOG.md) under "Unreleased" in your pull request: merging it releases it (see below).
+
+## Releasing
+
+There is nothing to do by hand: every push to `main` runs the "Release" workflow. When "Unreleased" in
+[CHANGELOG.md](CHANGELOG.md) lists something, it picks the next version from those entries (major for a
+`### Removed` section, a `!` after the type or `BREAKING`; minor for an `### Added` section or a `feat`; patch
+otherwise), moves them under that version with [chan](https://github.com/geut/chan), writes it to
+[VERSION.md](VERSION.md), tags `v<version>`, publishes the GitHub release and deploys. A push with nothing under
+"Unreleased" is deployed without a release. `bun scripts/release.ts` prints the version the next release would get.
+
+So each merged pull request is its own release. To ship several changes as one release, merge them into a release
+branch first and open one pull request from it.
+
+The weekly "Update games database" workflow commits the new games to `main` with their own line under
+"Unreleased" (`chan added`), then runs the release.

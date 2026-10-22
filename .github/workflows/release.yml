@@ -1,0 +1,87 @@
+# Releases main whose CHANGELOG.md "Unreleased" section lists something: tests and builds, picks the next version
+# from what is listed (scripts/release.ts), moves "Unreleased" under that version with chan, writes VERSION.md,
+# commits and tags on main and publishes a GitHub release with that changelog section. Then deploys, so the site
+# shows the new version. Runs on every push to main, and from the weekly data update (a push by a workflow does
+# not start other workflows, so that one calls this one).
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  release:
+    name: Build, test and release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    # One release at a time; a newer push waits so it releases on top of the previous release commit.
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Python tests
+        run: bun run test:py
+      - name: Unit tests
+        run: bun run test
+      - name: Build
+        run: bun run build
+
+      - name: Next version
+        id: next
+        run: |
+          version="$(bun scripts/release.ts)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ -z "$version" ]; then echo "Nothing under Unreleased: no release."; else echo "Releasing v$version"; fi
+
+      - name: Update CHANGELOG.md and VERSION.md
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          bunx @geut/chan@3.2.9 release "$VERSION" --git-url "https://github.com/${{ github.repository }}"
+          echo "$VERSION" > VERSION.md
+
+      - name: Commit, tag and push
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md VERSION.md
+          git commit -m "chore(release): v$VERSION [skip ci]"
+          git tag "v$VERSION"
+          git push --atomic origin HEAD:main "v$VERSION"
+
+      - name: GitHub release
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bun scripts/release.ts --notes "$VERSION" > notes.md
+          gh release create "v$VERSION" --title "v$VERSION" --notes-file notes.md --verify-tag
+
+  # After the release commit, so the build has its VERSION.md; also when there was nothing to release.
+  deploy:
+    name: Deploy
+    needs: release
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml

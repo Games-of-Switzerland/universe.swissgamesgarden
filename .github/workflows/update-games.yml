@@ -1,3 +1,6 @@
+# Commits the new games to main, with a line under "Unreleased" in CHANGELOG.md, then releases and deploys them
+# (calls the Release workflow: a push by a workflow does not start other workflows).
+
 name: Update games database
 
 on:
@@ -11,39 +14,72 @@ on:
         type: boolean
         default: false
 
-permissions:
-  contents: write
-
 concurrency:
   group: update-games
   cancel-in-progress: false
 
 jobs:
   update:
+    name: Fetch and commit the new games
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: Fetch new games and build their constellations
         run: |
+          count() { python3 -c 'import json; print(len(json.load(open("data/games.json"))["games"]))'; }
+          echo "BEFORE=$(count)" >> "$GITHUB_ENV"
           if [ "${{ github.event.inputs.refresh_meta }}" = "true" ]; then
             python3 scripts/fetch_games.py --refresh-meta
           else
             python3 scripts/fetch_games.py
           fi
+          echo "AFTER=$(count)" >> "$GITHUB_ENV"
 
-      - name: Commit new games
+      - name: Commit the new games and their changelog line
+        id: commit
         run: |
           if git diff --quiet -- data; then
             echo "No new games."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
+          fi
+          day="$(date -u +%Y-%m-%d)"
+          added=$((AFTER - BEFORE))
+          if [ "$added" -gt 0 ]; then
+            message="feat(data): add $added new games from swissgames.garden ($day)"
+            bunx @geut/chan@3.2.9 added "$message"
+          else
+            message="fix(data): refresh the games already in the database from swissgames.garden ($day)"
+            bunx @geut/chan@3.2.9 changed "$message"
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
-          git commit -m "feat(data): add new games from swissgames.garden ($(date -u +%Y-%m-%d))"
-          git push
+          git add data CHANGELOG.md
+          git commit -m "$message"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  release:
+    name: Release
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/release.yml
