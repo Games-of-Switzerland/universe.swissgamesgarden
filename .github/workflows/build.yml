@@ -1,13 +1,13 @@
-# Validates every push and pull request: unit tests, production build, and a dry run of the
+# Validates every push and pull request on main and dev: unit tests, production build, and a dry run of the
 # constellation algorithm over the local data (no network).
 
 name: Build & Test
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   test:

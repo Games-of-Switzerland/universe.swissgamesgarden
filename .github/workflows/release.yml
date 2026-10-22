@@ -1,0 +1,93 @@
+# Releases every push to main (dev merged into it) whose CHANGELOG.md "Unreleased" section lists something:
+# tests and builds, picks the next version from what is listed (scripts/release.ts), moves "Unreleased" under
+# that version with chan, writes VERSION.md, commits and tags on main, merges main back into dev and publishes
+# a GitHub release with that changelog section. Deploy runs after it, so the site shows the new version.
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One release at a time; a newer push waits so it releases on top of the previous release commit.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build, test and release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Python tests
+        run: bun run test:py
+      - name: Unit tests
+        run: bun run test
+      - name: Build
+        run: bun run build
+
+      - name: Next version
+        id: next
+        run: |
+          version="$(bun scripts/release.ts)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ -z "$version" ]; then echo "Nothing under Unreleased: no release."; else echo "Releasing v$version"; fi
+
+      - name: Update CHANGELOG.md and VERSION.md
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          bunx @geut/chan@3.2.9 release "$VERSION" --git-url "https://github.com/${{ github.repository }}"
+          echo "$VERSION" > VERSION.md
+
+      - name: Commit, tag and push
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md VERSION.md
+          git commit -m "chore(release): v$VERSION [skip ci]"
+          git tag "v$VERSION"
+          git push --atomic origin HEAD:main "v$VERSION"
+
+      - name: GitHub release
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bun scripts/release.ts --notes "$VERSION" > notes.md
+          gh release create "v$VERSION" --title "v$VERSION" --notes-file notes.md --verify-tag
+
+      # dev gets the release commit, so its next "Unreleased" starts after this version. Last, and it does not fail
+      # the run (Deploy still goes): a conflict (CHANGELOG.md edited on dev meanwhile) leaves a warning, merge by hand.
+      - name: Merge main back into dev
+        if: steps.next.outputs.version != ''
+        continue-on-error: true
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          git fetch origin dev
+          git switch -C dev origin/dev
+          if ! git merge --no-edit -m "chore(release): merge v$VERSION into dev [skip ci]" main; then
+            echo "::warning::main does not merge cleanly into dev: merge it by hand."
+            exit 1
+          fi
+          git push origin dev

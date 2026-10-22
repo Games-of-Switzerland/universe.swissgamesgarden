@@ -12,6 +12,11 @@ bun install        # dev tools (Biome, Vitest)
 bun run dev        # development server, prints its URL
 ```
 
+## Branches
+
+`dev` is the default branch: open pull requests against it. `main` is what is live; it only gets `dev` merged into
+it (a release), the release commits and the weekly data update, which are merged back into `dev` automatically.
+
 ## Before opening a pull request
 
 ```bash
@@ -58,6 +63,7 @@ scripts/
   merge.py            what gets added, refreshed or skipped, and where it sits (pure)
   constellation.py    the constellation algorithm
   build.ts            the production build (also copies public/)
+  release.ts          the next version from CHANGELOG.md, and the notes of a release (Release workflow)
   og-image.html       source of the sharing image; og-image.ts renders it (bun run og-image)
 public/               favicons, sharing image, robots.txt, sitemap.xml: served at the root as they are
 data/games.json       the database
@@ -82,3 +88,12 @@ so in the pull request.
 Use imperative, conventional-commit style messages: `feat(detail): add the award pills`,
 `fix(camera): keep the focal length while the mobile bar collapses`. Add an entry to
 [CHANGELOG.md](CHANGELOG.md) under "Unreleased".
+
+## Releasing
+
+Merge `dev` into `main`; the "Release" workflow does the rest. When "Unreleased" in [CHANGELOG.md](CHANGELOG.md)
+lists something, it picks the next version from those entries (major for a `### Removed` section, a `!` after the
+type or `BREAKING`; minor for an `### Added` section or a `feat`; patch otherwise), moves them under that version
+with [chan](https://github.com/geut/chan), writes it to [VERSION.md](VERSION.md), tags `v<version>`, publishes the
+GitHub release and merges `main` back into `dev`. "Deploy" runs after it. `bun scripts/release.ts` prints the
+version the next release would get.

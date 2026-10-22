@@ -1,3 +1,6 @@
+# Commits the new games to main (they go live without a release: Deploy runs after this workflow), then merges
+# main into dev. The schedule runs the copy of this file on the default branch (dev); it checks out main.
+
 name: Update games database
 
 on:
@@ -23,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -46,4 +52,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data
           git commit -m "feat(data): add new games from swissgames.garden ($(date -u +%Y-%m-%d))"
-          git push
+          git push origin HEAD:main
+
+      - name: Merge main into dev
+        run: |
+          git fetch origin dev
+          git switch -C dev origin/dev
+          git merge --no-edit -m "chore(data): merge the new games of main into dev [skip ci]" main
+          git push origin dev
