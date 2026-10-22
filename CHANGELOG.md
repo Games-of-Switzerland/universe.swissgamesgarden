@@ -1,11 +1,19 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- feat: GitHub Action "Release": every push to `main` with entries under "Unreleased" bumps the version (`VERSION.md`, from the entries: `scripts/release.ts`), moves them under that version with chan, tags and publishes a GitHub release
+
+### Changed
+- feat: the Deploy workflow runs after each release instead of on every push, so the site shows the new version
+- refactor: the "Build & Test" workflow lives in `.github/workflows/test.yml`
+- feat: the weekly data update adds its line under "Unreleased" in `CHANGELOG.md` (chan) and releases the new games
+
+## [1.0.0] - 2026-10-22
 ### Changed
 - feat: the "?" of the top bar shares a pill with a GitHub link that shows the site version
 - feat: opening a game adds a history entry, so the back button closes it
@@ -47,3 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Biome (lint + format), Vitest tests (modules + `data/games.json` validation), GitHub Actions "Linting" and "Build & Test"
 - GitHub Action "Deploy": every push to `main` builds the site and publishes it to GitHub Pages (custom domain via `dist/CNAME`)
 - `.editorconfig`, `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1), `CONTRIBUTING.md`, MIT `LICENSE`
+
+[Unreleased]: https://github.com/Games-of-Switzerland/universe.swissgamesgarden/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/Games-of-Switzerland/universe.swissgamesgarden/releases/tag/1.0.0

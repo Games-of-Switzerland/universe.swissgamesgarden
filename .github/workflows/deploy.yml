@@ -1,15 +1,10 @@
-# Builds the site and publishes dist/ to GitHub Pages on every push to main, after each successful
-# weekly data update, and on demand.
+# Builds main and publishes dist/ to GitHub Pages: called by the Release workflow once main is released (every
+# push to main and every weekly data update), and on demand.
 
 name: Deploy
 
 on:
-  push:
-    branches: [main]
-  workflow_run:
-    workflows: ["Update games database"]
-    types: [completed]
-    branches: [main]
+  workflow_call:
   workflow_dispatch:
 
 permissions:
@@ -26,7 +21,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
         with:
