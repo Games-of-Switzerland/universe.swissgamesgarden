@@ -236,22 +236,64 @@ body.is-focused .search {
   }
 }
 
-.help {
+/* GitHub link with the version and the legend "?", one pill split in two, top-right */
+.project {
+  display: flex;
+  height: 36px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--ink);
   border-radius: 999px;
-  width: 36px;
-  height: 36px;
+  overflow: hidden;
   font:
-    600 15px Inter,
+    600 14px Inter,
     sans-serif;
+}
+.project-github {
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.project-version {
+  margin-left: 0.3em;
+  font-weight: 400;
+  opacity: 0.6;
+}
+.help {
+  width: 38px;
+  padding: 0 2px 0 0;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
   cursor: pointer;
 }
+/* Each half turns white under the pointer */
+.project-github:hover,
 .help:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--ink);
+  color: var(--bg);
 }
-body.is-focused .help {
+.project-github:focus-visible,
+.help:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+/* mobile: the "?" alone, a round button */
+@media (max-width: 720px) {
+  .project-github {
+    display: none;
+  }
+  .help {
+    width: 34px;
+    padding: 0;
+  }
+}
+body.is-focused .project {
   opacity: 0;
   pointer-events: none;
 }
@@ -555,7 +597,7 @@ body.is-loading .coach {
   }
 }
 .search,
-.help,
+.project,
 .year,
 .year-picker,
 .hint {
@@ -576,7 +618,7 @@ body.is-loading .search {
   transform: translate(-50%, calc(-100% - 40px));
   opacity: 0;
 }
-body.is-loading .help {
+body.is-loading .project {
   transform: translateY(calc(-100% - 40px));
   opacity: 0;
 }
@@ -596,7 +638,7 @@ body.is-loading .compass {
   opacity: 0;
   pointer-events: none;
 }
-body.is-entering .help {
+body.is-entering .project {
   transition-delay: 0.1s;
 }
 body.is-entering .year {
@@ -613,7 +655,7 @@ body.is-entering .hint {
     animation: none;
   }
   .search,
-  .help,
+  .project,
   .year,
   .year-picker,
   .hint {

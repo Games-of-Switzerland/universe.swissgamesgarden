@@ -58,6 +58,7 @@ scripts/
   merge.py            what gets added, refreshed or skipped, and where it sits (pure)
   constellation.py    the constellation algorithm
   build.ts            the production build (also copies public/)
+  version.ts          writes the version of VERSION.md into the page (build and dev server)
   og-image.html       source of the sharing image; og-image.ts renders it (bun run og-image)
 public/               favicons, sharing image, robots.txt, sitemap.xml: served at the root as they are
 data/games.json       the database
