@@ -1,6 +1,6 @@
 {
  "algorithm_version": 4,
- "updated": "2026-11-16T13:27:29Z",
+ "updated": "2026-11-23T15:47:09Z",
  "params": {
   "3": {
    "anchor_candidates": 5,
@@ -9013,6 +9013,113 @@
    }
   },
   {
+   "uuid": "ba73b2f5-8bc9-498f-b320-6f34de13cd60",
+   "id": "2493",
+   "title": "Pametha",
+   "path": "/games/pametha",
+   "url": "https://swissgames.garden/games/pametha",
+   "year": 1989,
+   "first_release": {
+    "date": "1989-01-01",
+    "platform": "Amiga",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/Pamehta1.png?h=b1f64561&itok=rjPjteWr",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/Pamehta1.png?h=b1f64561&itok=cJqG7jI7",
+    "placeholder": "https://api.swissgames.garden/cdn/ff/HhiOTvca0R0u7AaIXuUarOU3BCifKqSnxhczPN-FiUI/1794860295/public/styles/placeholder_30x30/public/games/2026-11/Pamehta1.png?itok=HtPb5ejS"
+   },
+   "releases": [
+    {
+     "date": "1989-01-01",
+     "platform": "Amiga",
+     "slug": "amiga",
+     "state": "released"
+    }
+   ],
+   "studios": [],
+   "people": [
+    "Philippe Gressly"
+   ],
+   "cantons": [],
+   "locations": [],
+   "stores": [],
+   "players": {
+    "min": 1,
+    "max": 1
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    {
+     "name": "Adventure",
+     "slug": "adventure"
+    }
+   ],
+   "languages": [],
+   "completeness": null,
+   "constellation": {
+    "v": 4,
+    "cx": 0.6106,
+    "cy": 0.6358,
+    "shine": 1.0,
+    "near": 0.35,
+    "extent": 16.99,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "Pametha",
+      "parent": null,
+      "main": true,
+      "r": 3.0,
+      "twinkle": {
+       "phase": 2.825,
+       "rate": 1.215
+      },
+      "x": -0.27,
+      "y": 0.99
+     },
+     {
+      "kind": "platform",
+      "label": "Amiga",
+      "family": "retro",
+      "date": "1989-01-01",
+      "state": "released",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 3.846,
+       "rate": 1.335
+      },
+      "x": 6.94,
+      "y": -13.29
+     },
+     {
+      "kind": "person",
+      "label": "Philippe Gressly",
+      "parent": 0,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 1.527,
+       "rate": 0.4
+      },
+      "x": -6.67,
+      "y": 12.3
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  },
+  {
    "uuid": "c388dca2-6b0c-4a73-8d31-05ae9ae545af",
    "id": "642",
    "title": "Clown-o-Mania",
@@ -9152,6 +9259,204 @@
      [
       0,
       4
+     ]
+    ]
+   }
+  },
+  {
+   "uuid": "c9c223a7-ff6e-408b-901f-76ccff3346cb",
+   "id": "2495",
+   "title": "Rings of Medusa",
+   "path": "/games/rings-medusa",
+   "url": "https://swissgames.garden/games/rings-medusa",
+   "year": 1989,
+   "first_release": {
+    "date": "1989-01-01",
+    "platform": "Amiga",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/ringsofmedusa1.png?h=17f19221&itok=1PJWkOn2",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/ringsofmedusa1.png?h=17f19221&itok=y1A3NAKR",
+    "placeholder": "https://api.swissgames.garden/sites/default/files/styles/placeholder_30x30/public/games/2026-11/ringsofmedusa1.png?itok=oiXnpmvP"
+   },
+   "releases": [
+    {
+     "date": "1989-01-01",
+     "platform": "Amiga",
+     "slug": "amiga",
+     "state": "released"
+    },
+    {
+     "date": "1989-01-01",
+     "platform": "Atari ST",
+     "slug": "atari_st",
+     "state": "released"
+    },
+    {
+     "date": "1989-01-01",
+     "platform": "Commodore 64",
+     "slug": "c64",
+     "state": "released"
+    }
+   ],
+   "studios": [
+    "The Voice of the Underground"
+   ],
+   "people": [
+    "Christian Haller",
+    "Christian A. Weber",
+    "Christian Haller",
+    "Christian A. Weber"
+   ],
+   "cantons": [
+    "Appenzell"
+   ],
+   "locations": [
+    "Appenzell"
+   ],
+   "stores": [],
+   "players": {
+    "min": null,
+    "max": null
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    "Strategy",
+    "Role-Playing Game"
+   ],
+   "languages": [
+    "English"
+   ],
+   "completeness": 7541,
+   "constellation": {
+    "v": 4,
+    "cx": 0.2218,
+    "cy": 0.5955,
+    "shine": 1.0,
+    "near": 0.867,
+    "extent": 41.6,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "Rings of Medusa",
+      "parent": null,
+      "main": true,
+      "r": 3.44,
+      "twinkle": {
+       "phase": 1.244,
+       "rate": 1.142
+      },
+      "x": -5.6,
+      "y": -0.9
+     },
+     {
+      "kind": "platform",
+      "label": "Amiga",
+      "family": "retro",
+      "date": "1989-01-01",
+      "state": "released",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 0.902,
+       "rate": 1.428
+      },
+      "x": -15.46,
+      "y": -13.5
+     },
+     {
+      "kind": "platform",
+      "label": "Atari ST",
+      "family": "retro",
+      "date": "1989-01-01",
+      "state": "released",
+      "parent": 1,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 4.951,
+       "rate": 1.065
+      },
+      "x": -8.06,
+      "y": -27.69
+     },
+     {
+      "kind": "platform",
+      "label": "Commodore 64",
+      "family": "retro",
+      "date": "1989-01-01",
+      "state": "released",
+      "parent": 2,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 0.054,
+       "rate": 0.64
+      },
+      "x": 2.72,
+      "y": -39.51
+     },
+     {
+      "kind": "studio",
+      "label": "The Voice of the Underground",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 5.942,
+       "rate": 0.405
+      },
+      "x": 5.01,
+      "y": 20.63
+     },
+     {
+      "kind": "person",
+      "label": "Christian Haller",
+      "parent": 4,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 3.056,
+       "rate": 0.855
+      },
+      "x": 16.15,
+      "y": 27.34
+     },
+     {
+      "kind": "person",
+      "label": "Christian A. Weber",
+      "parent": 4,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 4.067,
+       "rate": 0.48
+      },
+      "x": 5.26,
+      "y": 33.63
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      4,
+      6
      ]
     ]
    }
@@ -10243,6 +10548,185 @@
      ],
      [
       5,
+      6
+     ]
+    ]
+   }
+  },
+  {
+   "uuid": "7f2d9593-63ce-4f7e-8f11-b52970880e76",
+   "id": "2503",
+   "title": "Over the Net ",
+   "path": "/games/over-net",
+   "url": "https://swissgames.garden/games/over-net",
+   "year": 1990,
+   "first_release": {
+    "date": "1990-01-01",
+    "platform": "Amiga",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/over_the_net_s01.png?h=36a460f5&itok=0S8-kabe",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/over_the_net_s01.png?h=36a460f5&itok=gn8EZmKN",
+    "placeholder": "https://api.swissgames.garden/sites/default/files/styles/placeholder_30x30/public/games/2026-11/over_the_net_s01.png?itok=XV_EfmNu"
+   },
+   "releases": [
+    {
+     "date": "1990-01-01",
+     "platform": "Amiga",
+     "slug": "amiga",
+     "state": "released"
+    }
+   ],
+   "studios": [
+    "Genias (Italy)"
+   ],
+   "people": [
+    "Davide Dardari",
+    "Stefan Roda",
+    "Marco Dardari",
+    "Lorenzo Ranuzzi",
+    "Davide Dardari",
+    "Stefan Roda",
+    "Marco Dardari",
+    "Lorenzo Ranuzzi"
+   ],
+   "cantons": [],
+   "locations": [],
+   "stores": [],
+   "players": {
+    "min": null,
+    "max": null
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    "Sport"
+   ],
+   "languages": [
+    "English"
+   ],
+   "completeness": 7521,
+   "constellation": {
+    "v": 4,
+    "cx": 0.6292,
+    "cy": 0.1215,
+    "shine": 1.0,
+    "near": 0.864,
+    "extent": 37.67,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "Over the Net ",
+      "parent": null,
+      "main": true,
+      "r": 3.74,
+      "twinkle": {
+       "phase": 5.953,
+       "rate": 0.944
+      },
+      "x": 16.6,
+      "y": -10.71
+     },
+     {
+      "kind": "platform",
+      "label": "Amiga",
+      "family": "retro",
+      "date": "1990-01-01",
+      "state": "released",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 6.221,
+       "rate": 1.437
+      },
+      "x": 28.71,
+      "y": -21.17
+     },
+     {
+      "kind": "studio",
+      "label": "Genias (Italy)",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 3.484,
+       "rate": 0.603
+      },
+      "x": -3.34,
+      "y": 2.65
+     },
+     {
+      "kind": "person",
+      "label": "Davide Dardari",
+      "parent": 2,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 0.576,
+       "rate": 1.319
+      },
+      "x": -2.26,
+      "y": 15.61
+     },
+     {
+      "kind": "person",
+      "label": "Stefan Roda",
+      "parent": 2,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 0.667,
+       "rate": 0.782
+      },
+      "x": -9.76,
+      "y": 13.96
+     },
+     {
+      "kind": "person",
+      "label": "Marco Dardari",
+      "parent": 2,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 3.876,
+       "rate": 0.642
+      },
+      "x": -16.16,
+      "y": 4.79
+     },
+     {
+      "kind": "person",
+      "label": "Lorenzo Ranuzzi",
+      "parent": 2,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 2.105,
+       "rate": 0.908
+      },
+      "x": -13.77,
+      "y": -5.11
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      2,
       6
      ]
     ]
@@ -152639,6 +153123,180 @@
    }
   },
   {
+   "uuid": "04b23a72-ed41-4974-92b5-086481b433b3",
+   "id": "2509",
+   "title": "Horses of Hoofprint Bay",
+   "path": "/games/horses-hoofprint-bay",
+   "url": "https://swissgames.garden/games/horses-hoofprint-bay",
+   "year": 2026,
+   "first_release": {
+    "date": "2026-11-04",
+    "platform": "Linux",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/HorsesOfHoofprintBay01.jpg?h=46a8a69d&itok=SOtIVnny",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/HorsesOfHoofprintBay01.jpg?h=46a8a69d&itok=VeST9IMx",
+    "placeholder": "https://api.swissgames.garden/sites/default/files/styles/placeholder_30x30/public/games/2026-11/HorsesOfHoofprintBay01.jpg?itok=pba_OpVN"
+   },
+   "releases": [
+    {
+     "date": "2026-11-04",
+     "platform": "Windows",
+     "slug": "windows",
+     "state": "released"
+    },
+    {
+     "date": "2026-11-04",
+     "platform": "Linux",
+     "slug": "linux",
+     "state": "released"
+    }
+   ],
+   "studios": [
+    "Thogli Studios"
+   ],
+   "people": [],
+   "cantons": [
+    "Foreign",
+    "Zürich"
+   ],
+   "locations": [],
+   "stores": [
+    "steam"
+   ],
+   "players": {
+    "min": null,
+    "max": null
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    "Simulation"
+   ],
+   "languages": [
+    "English",
+    "French",
+    "Dutch",
+    "German",
+    "Russian",
+    "Italian",
+    "Spanish",
+    "Czech",
+    "Finnish",
+    "Hungarian",
+    "Norwegian",
+    "Polish",
+    "Brazilian Portuguese",
+    "Portuguese",
+    "Turkish",
+    "Ukrainian",
+    "Danish",
+    "Korean",
+    "Romanian",
+    "Simplified Chinese",
+    "Japanese",
+    "Swedish",
+    "Latin American Spanish"
+   ],
+   "completeness": 6631,
+   "constellation": {
+    "v": 4,
+    "cx": 0.8089,
+    "cy": 0.1395,
+    "shine": 1.0,
+    "near": 0.762,
+    "extent": 32.51,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "Horses of Hoofprint Bay",
+      "parent": null,
+      "main": true,
+      "r": 3.0,
+      "twinkle": {
+       "phase": 4.592,
+       "rate": 0.773
+      },
+      "x": -0.25,
+      "y": 7.68
+     },
+     {
+      "kind": "platform",
+      "label": "Linux",
+      "family": "pc",
+      "date": "2026-11-04",
+      "state": "released",
+      "parent": 0,
+      "r": 1.9,
+      "twinkle": {
+       "phase": 1.385,
+       "rate": 1.367
+      },
+      "x": -7.69,
+      "y": -6.49
+     },
+     {
+      "kind": "platform",
+      "label": "Windows",
+      "family": "pc",
+      "date": "2026-11-04",
+      "state": "released",
+      "parent": 1,
+      "r": 1.9,
+      "twinkle": {
+       "phase": 5.264,
+       "rate": 1.145
+      },
+      "x": 6.38,
+      "y": -14.11
+     },
+     {
+      "kind": "studio",
+      "label": "Thogli Studios",
+      "parent": 0,
+      "r": 2.0,
+      "twinkle": {
+       "phase": 5.609,
+       "rate": 1.038
+      },
+      "x": 13.46,
+      "y": 27.38
+     },
+     {
+      "kind": "store",
+      "label": "steam",
+      "parent": 1,
+      "r": 0.9,
+      "twinkle": {
+       "phase": 3.6,
+       "rate": 0.63
+      },
+      "x": -11.91,
+      "y": -14.44
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      4
+     ]
+    ]
+   }
+  },
+  {
    "uuid": "0ccf6f20-83d8-4537-b762-31c79e509ebf",
    "id": "2438",
    "title": "wageslave",
@@ -152806,6 +153464,116 @@
      [
       1,
       5
+     ]
+    ]
+   }
+  },
+  {
+   "uuid": "1657f604-563d-46bb-afff-140543c9d2b4",
+   "id": "2485",
+   "title": "LEB Express",
+   "path": "/games/leb-express",
+   "url": "https://swissgames.garden/games/leb-express",
+   "year": 2026,
+   "first_release": {
+    "date": "2026-11-12",
+    "platform": "Browser",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/LEB%20Express01.jpg?h=ab236af5&itok=JEHDHqx5",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/LEB%20Express01.jpg?h=ab236af5&itok=J2fuzzgv",
+    "placeholder": "https://api.swissgames.garden/sites/default/files/styles/placeholder_30x30/public/games/2026-11/LEB%20Express01.jpg?itok=KsKLX-fD"
+   },
+   "releases": [
+    {
+     "date": "2026-11-12",
+     "platform": "Browser",
+     "slug": "browser",
+     "state": "released"
+    }
+   ],
+   "studios": [],
+   "people": [
+    "Mila Paul "
+   ],
+   "cantons": [
+    "Vaud"
+   ],
+   "locations": [
+    "Lausanne"
+   ],
+   "stores": [],
+   "players": {
+    "min": 1,
+    "max": 1
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    "Simulation"
+   ],
+   "languages": [
+    "French"
+   ],
+   "completeness": 5541,
+   "constellation": {
+    "v": 4,
+    "cx": 0.8232,
+    "cy": 0.2796,
+    "shine": 1.0,
+    "near": 0.637,
+    "extent": 16.3,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "LEB Express",
+      "parent": null,
+      "main": true,
+      "r": 3.0,
+      "twinkle": {
+       "phase": 1.849,
+       "rate": 0.723
+      },
+      "x": -0.97,
+      "y": -0.32
+     },
+     {
+      "kind": "platform",
+      "label": "Browser",
+      "family": "browser",
+      "date": "2026-11-12",
+      "state": "released",
+      "parent": 0,
+      "r": 1.3,
+      "twinkle": {
+       "phase": 4.34,
+       "rate": 1.292
+      },
+      "x": 14.88,
+      "y": 1.86
+     },
+     {
+      "kind": "person",
+      "label": "Mila Paul ",
+      "parent": 0,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 2.532,
+       "rate": 1.371
+      },
+      "x": -13.91,
+      "y": -1.54
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
      ]
     ]
    }
@@ -158820,6 +159588,117 @@
      [
       0,
       4
+     ]
+    ]
+   }
+  },
+  {
+   "uuid": "e60423ed-4eef-43fe-9cd3-6af2c3c3391e",
+   "id": "2483",
+   "title": "Spiel den Blocher «Frechdachs»: Schnapp dir die Engerlinge",
+   "path": "/games/spiel-den-blocher-frechdachs-schnapp-dir-die-engerlinge",
+   "url": "https://swissgames.garden/games/spiel-den-blocher-frechdachs-schnapp-dir-die-engerlinge",
+   "year": 2026,
+   "first_release": {
+    "date": "2026-08-27",
+    "platform": "Browser",
+    "state": "released"
+   },
+   "cover": {
+    "thumb": "https://api.swissgames.garden/sites/default/files/styles/3x2_330x220/public/games/2026-11/Blaireau01.png?h=05579cce&itok=Rm2bCTLT",
+    "large": "https://api.swissgames.garden/sites/default/files/styles/3x2_660x440/public/games/2026-11/Blaireau01.png?h=05579cce&itok=H1ZxZgaI",
+    "placeholder": "https://api.swissgames.garden/sites/default/files/styles/placeholder_30x30/public/games/2026-11/Blaireau01.png?itok=-PrQN8Es"
+   },
+   "releases": [
+    {
+     "date": "2026-08-27",
+     "platform": "Browser",
+     "slug": "browser",
+     "state": "released"
+    }
+   ],
+   "studios": [],
+   "people": [
+    "Michael Andai"
+   ],
+   "cantons": [
+    "Zürich"
+   ],
+   "locations": [
+    "Zürich"
+   ],
+   "stores": [],
+   "players": {
+    "min": 1,
+    "max": 1
+   },
+   "is_sensitive": false,
+   "awards": [],
+   "genres": [
+    "Casual"
+   ],
+   "languages": [
+    "German",
+    "French"
+   ],
+   "completeness": 5532,
+   "constellation": {
+    "v": 4,
+    "cx": 0.6003,
+    "cy": 0.8788,
+    "shine": 1.0,
+    "near": 0.636,
+    "extent": 16.29,
+    "stars": [
+     {
+      "kind": "game",
+      "label": "Spiel den Blocher «Frechdachs»: Schnapp dir die Engerlinge",
+      "parent": null,
+      "main": true,
+      "r": 3.0,
+      "twinkle": {
+       "phase": 5.715,
+       "rate": 0.787
+      },
+      "x": -1.04,
+      "y": 0.34
+     },
+     {
+      "kind": "platform",
+      "label": "Browser",
+      "family": "browser",
+      "date": "2026-08-27",
+      "state": "released",
+      "parent": 0,
+      "r": 1.3,
+      "twinkle": {
+       "phase": 2.919,
+       "rate": 1.319
+      },
+      "x": 14.93,
+      "y": 1.33
+     },
+     {
+      "kind": "person",
+      "label": "Michael Andai",
+      "parent": 0,
+      "r": 1.2,
+      "twinkle": {
+       "phase": 1.303,
+       "rate": 0.52
+      },
+      "x": -13.89,
+      "y": -1.66
+     }
+    ],
+    "links": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
      ]
     ]
    }
